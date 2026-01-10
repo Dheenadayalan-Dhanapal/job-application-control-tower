@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "job-application-control-tower",
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ]
+}
