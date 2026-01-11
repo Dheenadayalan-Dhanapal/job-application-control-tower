@@ -62,30 +62,38 @@ class JobTracker {
         document.getElementById('cancelReplyModal').addEventListener('click', () => this.closeReplyModal());
         document.getElementById('replyForm').addEventListener('submit', (e) => this.saveReply(e));
 
-        // Filters
+        // Filters with Premium Loading Feel
+        let filterTimeout;
+        const triggerFilter = () => {
+            clearTimeout(filterTimeout);
+            this.renderApplications(true); // Show skeleton
+            filterTimeout = setTimeout(() => {
+                this.renderApplications(); // Render real data
+            }, 400); // 400ms delay for premium feel
+        };
+
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.currentFilter.search = e.target.value;
-            this.renderApplications();
+            triggerFilter();
         });
         document.getElementById('statusFilter').addEventListener('change', (e) => {
             this.currentFilter.status = e.target.value;
-            this.renderApplications();
+            triggerFilter();
         });
         document.getElementById('sortBy').addEventListener('change', (e) => {
             this.currentFilter.sort = e.target.value;
-            this.renderApplications();
+            triggerFilter();
         });
         document.getElementById('clearFilters').addEventListener('click', () => {
             document.getElementById('searchInput').value = '';
             document.getElementById('statusFilter').value = '';
             document.getElementById('sortBy').value = 'dateDesc';
             this.currentFilter = { search: '', status: '', sort: 'dateDesc' };
-            this.renderApplications();
+            triggerFilter();
         });
-
         // Data Import/Export
-        document.getElementById('exportDataBtn').addEventListener('click', () => this.exportData());
-        document.getElementById('importDataBtn').addEventListener('click', () => this.importData());
+        document.getElementById('exportDashboardBtn').addEventListener('click', () => this.exportData());
+        document.getElementById('importDashboardBtn').addEventListener('click', () => this.importData());
 
         // Close modal on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
@@ -256,9 +264,26 @@ class JobTracker {
     }
 
     // Render Applications
-    renderApplications() {
+    renderApplications(isLoading = false) {
         const container = document.getElementById('applicationsList');
         const emptyState = document.getElementById('emptyState');
+
+        if (isLoading) {
+            container.innerHTML = Array(3).fill(0).map(() => `
+                <div class="skeleton-card">
+                    <div class="skeleton w-1/3 mb-4"></div>
+                    <div class="skeleton w-1/2 mb-6"></div>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="skeleton h-12"></div>
+                        <div class="skeleton h-12"></div>
+                        <div class="skeleton h-12"></div>
+                        <div class="skeleton h-12"></div>
+                    </div>
+                </div>
+            `).join('');
+            emptyState.classList.add('hidden');
+            return;
+        }
 
         let filtered = this.filterApplications();
         filtered = this.sortApplications(filtered);

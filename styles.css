@@ -182,7 +182,7 @@ body::before {
 
 @keyframes slideUp {
     from {
-        transform: translateY(20px);
+        transform: translateY(30px);
         opacity: 0;
     }
 
@@ -190,6 +190,29 @@ body::before {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* Physics-based transitions */
+.transition-spring {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+#landingView h1 {
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#landingView p {
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 0;
+}
+
+#landingView .flex {
+    animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    opacity: 0;
 }
 
 /* Application Card */
@@ -531,6 +554,27 @@ body::before {
     100% {
         background-position: 200% 0;
     }
+}
+
+/* Skeleton Loaders */
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(31, 41, 55, 0.4) 25%,
+            rgba(55, 65, 81, 0.6) 50%,
+            rgba(31, 41, 55, 0.4) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 8px;
+    height: 20px;
+    width: 100%;
+}
+
+.skeleton-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(31, 41, 55, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
 }
 
 /* Action Buttons */

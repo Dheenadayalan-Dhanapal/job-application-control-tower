@@ -41,6 +41,23 @@ function initializeFirebase() {
     }
 }
 
+// View Management
+function showView(viewId) {
+    const views = ['landingView', 'authView', 'dashboardView'];
+    views.forEach(id => {
+        const view = document.getElementById(id);
+        if (view) {
+            if (id === viewId) {
+                view.classList.remove('hidden');
+                view.classList.add('fade-in');
+            } else {
+                view.classList.add('hidden');
+                view.classList.remove('fade-in');
+            }
+        }
+    });
+}
+
 // Authentication Functions
 function handleAuthStateChanged(user) {
     currentUser = user;
@@ -48,10 +65,13 @@ function handleAuthStateChanged(user) {
 
     if (user) {
         console.log('User signed in:', user.email);
+        showView('dashboardView');
         // Sync data from cloud when user signs in
         syncFromCloud();
     } else {
         console.log('User signed out');
+        showView('landingView');
+
         // Clear local data on sign-out for privacy in multi-user environments
         if (window.jobTracker) {
             window.jobTracker.applications = [];
@@ -128,6 +148,27 @@ function updateAuthUI(user) {
         if (signInBtn) signInBtn.classList.remove('hidden');
         if (signOutBtn) signOutBtn.classList.add('hidden');
         if (userInfo) userInfo.classList.add('hidden');
+    }
+}
+
+// Landing & Auth Page Event Listeners
+function setupLandingPageListeners() {
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const googleSignInBtn = document.getElementById('googleSignInBtn');
+    const viewDemoBtn = document.getElementById('viewDemoBtn');
+
+    if (getStartedBtn) {
+        getStartedBtn.addEventListener('click', () => showView('authView'));
+    }
+
+    if (googleSignInBtn) {
+        googleSignInBtn.addEventListener('click', signInWithGoogle);
+    }
+
+    if (viewDemoBtn) {
+        viewDemoBtn.addEventListener('click', () => {
+            showNotification('Demo video coming soon!', 'info');
+        });
     }
 }
 
@@ -279,6 +320,9 @@ function showNotification(message, type = 'info') {
 
 // Initialize Firebase when the script loads
 document.addEventListener('DOMContentLoaded', () => {
+    // Setup landing page buttons
+    setupLandingPageListeners();
+
     // Wait for Firebase SDK to load
     setTimeout(() => {
         const initialized = initializeFirebase();

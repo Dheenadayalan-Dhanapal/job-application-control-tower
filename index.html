@@ -65,477 +65,574 @@
 
 <body class="bg-gray-950 text-gray-100 font-['Inter'] overflow-x-hidden">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 backdrop-blur-xl bg-gray-900/80 border-b border-gray-800">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-purple to-accent-blue flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h1
-                            class="text-xl font-bold bg-gradient-to-r from-accent-purple via-accent-blue to-accent-teal bg-clip-text text-transparent">
-                            Job Application Control Tower
-                        </h1>
-                        <p class="text-xs text-gray-400">Track, Analyze, Succeed</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <!-- Sync Status Indicator -->
-                    <div id="syncIndicator"
-                        class="hidden flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800 text-xs">
-                        <!-- Will be populated by firebase-auth.js -->
-                    </div>
+    <!-- Landing Page Section -->
+    <div id="landingView" class="hidden min-h-screen flex flex-col justify-center relative overflow-hidden">
+        <div class="container mx-auto px-4 py-16 text-center relative z-10">
+            <div
+                class="mb-8 inline-block px-4 py-1.5 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-accent-purple text-sm font-semibold tracking-wide animate-bounce">
+                VERSION 2.0 IS HERE
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Control Your Career with <br />
+                <span
+                    class="bg-gradient-to-r from-accent-purple via-accent-blue to-accent-teal bg-clip-text text-transparent">
+                    Precision Velocity
+                </span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                The elite job tracking dashboard for modern engineers. Manage applications, analyze rejection patterns,
+                and land your dream role with data-driven insights.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <button id="getStartedBtn"
+                    class="px-8 py-4 rounded-xl bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-2xl hover:shadow-accent-purple/50 transition-all font-bold text-lg flex items-center gap-3 group">
+                    Get Started Free
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </button>
+                <button id="viewDemoBtn"
+                    class="px-8 py-4 rounded-xl bg-gray-800/50 border border-gray-700 hover:bg-gray-800 transition-all font-bold text-lg">
+                    Watch Demo
+                </button>
+            </div>
 
-                    <!-- User Info (shown when signed in) -->
-                    <div id="userInfo" class="hidden flex items-center gap-2">
-                        <img id="userAvatar" src="" alt="User"
-                            class="w-8 h-8 rounded-full border-2 border-accent-purple">
-                        <span id="userEmail" class="text-sm text-gray-300 hidden md:block"></span>
-                    </div>
-
-                    <button id="exportDataBtn"
-                        class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
-                        Export Data
-                    </button>
-                    <button id="importDataBtn"
-                        class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
-                        Import Data
-                    </button>
-
-                    <!-- Sign In / Sign Out Buttons -->
-                    <button id="signInBtn"
-                        class="px-4 py-2 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all text-sm font-medium flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z" />
-                        </svg>
-                        Sign In
-                    </button>
-                    <button id="signOutBtn"
-                        class="hidden px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
-                        Sign Out
-                    </button>
-                </div>
+            <!-- Floating Feature Pills -->
+            <div class="mt-20 flex flex-wrap justify-center gap-4 opacity-70">
+                <span class="px-4 py-2 rounded-lg bg-gray-900/50 border border-gray-800 text-sm">🔥 Rejection
+                    Heatmap</span>
+                <span class="px-4 py-2 rounded-lg bg-gray-900/50 border border-gray-800 text-sm">☁️ Cloud Sync</span>
+                <span class="px-4 py-2 rounded-lg bg-gray-900/50 border border-gray-800 text-sm">💬 HR Sentiment
+                    Analysis</span>
+                <span class="px-4 py-2 rounded-lg bg-gray-900/50 border border-gray-800 text-sm">⏰ Smart
+                    Reminders</span>
             </div>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-
-        <!-- Stats Overview -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-gray-400 text-sm font-medium">Total Applications</span>
-                    <div class="w-10 h-10 rounded-lg bg-accent-blue/20 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold" id="totalApplications">0</div>
-                <div class="text-xs text-gray-500 mt-1">Across all statuses</div>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-gray-400 text-sm font-medium">Pending Follow-ups</span>
-                    <div class="w-10 h-10 rounded-lg bg-accent-purple/20 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold" id="pendingFollowups">0</div>
-                <div class="text-xs text-gray-500 mt-1">Reminders due soon</div>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-gray-400 text-sm font-medium">Response Rate</span>
-                    <div class="w-10 h-10 rounded-lg bg-accent-teal/20 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-accent-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold" id="responseRate">0%</div>
-                <div class="text-xs text-gray-500 mt-1">Companies that replied</div>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-gray-400 text-sm font-medium">Success Rate</span>
-                    <div class="w-10 h-10 rounded-lg bg-accent-pink/20 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-accent-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-3xl font-bold" id="successRate">0%</div>
-                <div class="text-xs text-gray-500 mt-1">Offer acceptance rate</div>
-            </div>
-        </section>
-
-        <!-- Navigation Tabs -->
-        <div class="flex gap-2 mb-6 overflow-x-auto pt-2 pb-2">
-            <button class="nav-tab active" data-tab="applications">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                Applications
-            </button>
-            <button class="nav-tab" data-tab="reminders">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                Reminders
-            </button>
-            <button class="nav-tab" data-tab="replies">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                </svg>
-                HR Replies
-            </button>
-            <button class="nav-tab" data-tab="analytics">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                Analytics
-            </button>
+        <!-- Abstract Background Shapes -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-purple/20 rounded-full blur-[120px] -z-0">
         </div>
+        <div class="absolute top-1/4 right-0 w-[400px] h-[400px] bg-accent-blue/10 rounded-full blur-[100px] -z-0">
+        </div>
+    </div>
 
-        <!-- Tab Content -->
-        <div id="tabContent">
+    <!-- Auth View Section -->
+    <div id="authView" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-100 p-8 rounded-3xl text-center">
+            <div
+                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-purple to-accent-blue flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold mb-2">Welcome Back</h2>
+            <p class="text-gray-400 mb-8">Securely sync your career data across all devices.</p>
 
-            <!-- Applications Tab -->
-            <div id="applicationsTab" class="tab-content active">
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold">Application Tracking</h2>
-                        <button id="addApplicationBtn"
-                            class="px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button id="googleSignInBtn"
+                class="w-full py-4 rounded-xl bg-white text-gray-900 font-bold flex items-center justify-center gap-3 hover:bg-gray-100 transition-all mb-4">
+                <svg class="w-5 h-5" viewBox="0 0 24 24">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.14-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                Continue with Google
+            </button>
+            <p class="text-xs text-gray-500 mt-6 px-4">
+                By continuing, you agree to our Terms of Service and Privacy Policy. Private by design.
+            </p>
+        </div>
+    </div>
+
+    <!-- Dashboard View Section -->
+    <div id="dashboardView" class="hidden">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 backdrop-blur-xl bg-gray-900/80 border-b border-gray-800">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-purple to-accent-blue flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4" />
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
-                            Add Application
-                        </button>
+                        </div>
+                        <div>
+                            <h1
+                                class="text-xl font-bold bg-gradient-to-r from-accent-purple via-accent-blue to-accent-teal bg-clip-text text-transparent">
+                                Job Application Control Tower
+                            </h1>
+                            <p class="text-xs text-gray-400">Track, Analyze, Succeed</p>
+                        </div>
                     </div>
+                    <div class="flex items-center gap-3">
+                        <!-- Sync Status Indicator -->
+                        <div id="syncIndicator"
+                            class="hidden flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800 text-xs">
+                            <!-- Will be populated by firebase-auth.js -->
+                        </div>
 
-                    <!-- Filters -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                        <input type="text" id="searchInput" placeholder="Search companies or roles..."
-                            class="input-field">
-                        <select id="statusFilter" class="input-field">
-                            <option value="">All Statuses</option>
-                            <option value="applied">Applied</option>
-                            <option value="interview">Interview</option>
-                            <option value="offer">Offer</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="withdrawn">Withdrawn</option>
-                        </select>
-                        <select id="sortBy" class="input-field">
-                            <option value="dateDesc">Latest First</option>
-                            <option value="dateAsc">Oldest First</option>
-                            <option value="company">Company A-Z</option>
-                            <option value="status">By Status</option>
-                        </select>
-                        <button id="clearFilters"
+                        <!-- User Info (shown when signed in) -->
+                        <div id="userInfo" class="hidden flex items-center gap-2">
+                            <img id="userAvatar" src="" alt="User"
+                                class="w-8 h-8 rounded-full border-2 border-accent-purple">
+                            <span id="userEmail" class="text-sm text-gray-300 hidden md:block"></span>
+                        </div>
+
+                        <button id="exportDashboardBtn"
                             class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
-                            Clear Filters
+                            Export Data
+                        </button>
+                        <button id="importDashboardBtn"
+                            class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
+                            Import Data
+                        </button>
+
+                        <button id="signOutBtn"
+                            class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
+                            Sign Out
                         </button>
                     </div>
+                </div>
+            </div>
+        </header>
 
-                    <!-- Applications List -->
-                    <div id="applicationsList" class="space-y-4">
-                        <!-- Applications will be rendered here -->
-                    </div>
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
 
-                    <!-- Empty State -->
-                    <div id="emptyState" class="text-center py-16 hidden">
-                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
-                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Stats Overview -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400 text-sm font-medium">Total Applications</span>
+                        <div class="w-10 h-10 rounded-lg bg-accent-blue/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">No Applications Yet</h3>
-                        <p class="text-gray-400 mb-4">Start tracking your job applications by adding your first entry
-                        </p>
-                        <button onclick="document.getElementById('addApplicationBtn').click()"
-                            class="px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg transition-all font-medium">
-                            Add Your First Application
-                        </button>
                     </div>
+                    <div class="text-3xl font-bold" id="totalApplications">0</div>
+                    <div class="text-xs text-gray-500 mt-1">Across all statuses</div>
                 </div>
-            </div>
 
-            <!-- Reminders Tab -->
-            <div id="remindersTab" class="tab-content hidden">
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-2xl font-bold mb-6">Follow-up Reminders</h2>
-                    <div id="remindersList" class="space-y-4">
-                        <!-- Reminders will be rendered here -->
-                    </div>
-                    <div id="remindersEmptyState" class="text-center py-16 hidden">
-                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
-                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400 text-sm font-medium">Pending Follow-ups</span>
+                        <div class="w-10 h-10 rounded-lg bg-accent-purple/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-purple" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">No Reminders Set</h3>
-                        <p class="text-gray-400">Add applications with follow-up dates to see reminders here</p>
                     </div>
+                    <div class="text-3xl font-bold" id="pendingFollowups">0</div>
+                    <div class="text-xs text-gray-500 mt-1">Reminders due soon</div>
                 </div>
-            </div>
 
-            <!-- HR Replies Tab -->
-            <div id="repliesTab" class="tab-content hidden">
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-2xl font-bold mb-6">HR Replies</h2>
-                    <div id="repliesList" class="space-y-4">
-                        <!-- HR Replies will be rendered here -->
-                    </div>
-                    <div id="repliesEmptyState" class="text-center py-16 hidden">
-                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
-                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400 text-sm font-medium">Response Rate</span>
+                        <div class="w-10 h-10 rounded-lg bg-accent-teal/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">No Replies Yet</h3>
-                        <p class="text-gray-400">Add HR replies to your applications to track communication history</p>
                     </div>
+                    <div class="text-3xl font-bold" id="responseRate">0%</div>
+                    <div class="text-xs text-gray-500 mt-1">Companies that replied</div>
                 </div>
-            </div>
 
-            <!-- Analytics Tab -->
-            <div id="analyticsTab" class="tab-content hidden">
-                <div class="space-y-6">
-                    <!-- Rejection Heatmap -->
-                    <div class="glass-card rounded-2xl p-6">
-                        <h2 class="text-2xl font-bold mb-6">Rejection Heatmap</h2>
-
-                        <!-- Heatmap Filters -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            <select id="heatmapView" class="input-field">
-                                <option value="time">Time-based View</option>
-                                <option value="company">Company-based View</option>
-                                <option value="role">Role-based View</option>
-                            </select>
-                            <input type="date" id="dateFrom" class="input-field" placeholder="From Date">
-                            <input type="date" id="dateTo" class="input-field" placeholder="To Date">
-                        </div>
-
-                        <!-- Heatmap Canvas -->
-                        <div id="heatmapContainer" class="bg-gray-900 rounded-xl p-6 min-h-[400px]">
-                            <!-- Heatmap will be rendered here -->
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400 text-sm font-medium">Success Rate</span>
+                        <div class="w-10 h-10 rounded-lg bg-accent-pink/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
                         </div>
                     </div>
-
-                    <!-- Insights Panel -->
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-xl font-bold mb-4">Key Insights</h3>
-                        <div id="insightsList" class="space-y-3">
-                            <!-- Insights will be rendered here -->
-                        </div>
-                    </div>
+                    <div class="text-3xl font-bold" id="successRate">0%</div>
+                    <div class="text-xs text-gray-500 mt-1">Offer acceptance rate</div>
                 </div>
-            </div>
+            </section>
 
-        </div>
-    </main>
-
-    <!-- Add/Edit Application Modal -->
-    <div id="applicationModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content glass-card">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-2xl font-bold" id="modalTitle">Add Application</h3>
-                <button id="closeModal"
-                    class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all flex items-center justify-center">
+            <!-- Navigation Tabs -->
+            <div class="flex gap-2 mb-6 overflow-x-auto pt-2 pb-2">
+                <button class="nav-tab active" data-tab="applications">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
+                    Applications
+                </button>
+                <button class="nav-tab" data-tab="reminders">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    Reminders
+                </button>
+                <button class="nav-tab" data-tab="replies">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                    HR Replies
+                </button>
+                <button class="nav-tab" data-tab="analytics">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Analytics
                 </button>
             </div>
 
-            <form id="applicationForm" class="space-y-4">
-                <input type="hidden" id="applicationId">
+            <!-- Tab Content -->
+            <div id="tabContent">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Company Name *</label>
-                        <input type="text" id="companyName" required class="input-field" placeholder="e.g., Google">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Job Title *</label>
-                        <input type="text" id="jobTitle" required class="input-field"
-                            placeholder="e.g., Software Engineer">
+                <!-- Applications Tab -->
+                <div id="applicationsTab" class="tab-content active">
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold">Application Tracking</h2>
+                            <button id="addApplicationBtn"
+                                class="px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                Add Application
+                            </button>
+                        </div>
+
+                        <!-- Filters -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                            <input type="text" id="searchInput" placeholder="Search companies or roles..."
+                                class="input-field">
+                            <select id="statusFilter" class="input-field">
+                                <option value="">All Statuses</option>
+                                <option value="applied">Applied</option>
+                                <option value="interview">Interview</option>
+                                <option value="offer">Offer</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="withdrawn">Withdrawn</option>
+                            </select>
+                            <select id="sortBy" class="input-field">
+                                <option value="dateDesc">Latest First</option>
+                                <option value="dateAsc">Oldest First</option>
+                                <option value="company">Company A-Z</option>
+                                <option value="status">By Status</option>
+                            </select>
+                            <button id="clearFilters"
+                                class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all text-sm font-medium">
+                                Clear Filters
+                            </button>
+                        </div>
+
+                        <!-- Applications List -->
+                        <div id="applicationsList" class="space-y-4">
+                            <!-- Applications will be rendered here -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="emptyState" class="text-center py-16 hidden">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                                <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">No Applications Yet</h3>
+                            <p class="text-gray-400 mb-4">Start tracking your job applications by adding your first
+                                entry
+                            </p>
+                            <button onclick="document.getElementById('addApplicationBtn').click()"
+                                class="px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg transition-all font-medium">
+                                Add Your First Application
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Date Applied *</label>
-                        <input type="date" id="dateApplied" required class="input-field">
+                <!-- Reminders Tab -->
+                <div id="remindersTab" class="tab-content hidden">
+                    <div class="glass-card rounded-2xl p-6">
+                        <h2 class="text-2xl font-bold mb-6">Follow-up Reminders</h2>
+                        <div id="remindersList" class="space-y-4">
+                            <!-- Reminders will be rendered here -->
+                        </div>
+                        <div id="remindersEmptyState" class="text-center py-16 hidden">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                                <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">No Reminders Set</h3>
+                            <p class="text-gray-400">Add applications with follow-up dates to see reminders here</p>
+                        </div>
                     </div>
+                </div>
+
+                <!-- HR Replies Tab -->
+                <div id="repliesTab" class="tab-content hidden">
+                    <div class="glass-card rounded-2xl p-6">
+                        <h2 class="text-2xl font-bold mb-6">HR Replies</h2>
+                        <div id="repliesList" class="space-y-4">
+                            <!-- HR Replies will be rendered here -->
+                        </div>
+                        <div id="repliesEmptyState" class="text-center py-16 hidden">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+                                <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">No Replies Yet</h3>
+                            <p class="text-gray-400">Add HR replies to your applications to track communication history
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analyticsTab" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <!-- Rejection Heatmap -->
+                        <div class="glass-card rounded-2xl p-6">
+                            <h2 class="text-2xl font-bold mb-6">Rejection Heatmap</h2>
+
+                            <!-- Heatmap Filters -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <select id="heatmapView" class="input-field">
+                                    <option value="time">Time-based View</option>
+                                    <option value="company">Company-based View</option>
+                                    <option value="role">Role-based View</option>
+                                </select>
+                                <input type="date" id="dateFrom" class="input-field" placeholder="From Date">
+                                <input type="date" id="dateTo" class="input-field" placeholder="To Date">
+                            </div>
+
+                            <!-- Heatmap Canvas -->
+                            <div id="heatmapContainer" class="bg-gray-900 rounded-xl p-6 min-h-[400px]">
+                                <!-- Heatmap will be rendered here -->
+                            </div>
+                        </div>
+
+                        <!-- Insights Panel -->
+                        <div class="glass-card rounded-2xl p-6">
+                            <h3 class="text-xl font-bold mb-4">Key Insights</h3>
+                            <div id="insightsList" class="space-y-3">
+                                <!-- Insights will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Add/Edit Application Modal -->
+        <div id="applicationModal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass-card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold" id="modalTitle">Add Application</h3>
+                    <button id="closeModal"
+                        class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <form id="applicationForm" class="space-y-4">
+                    <input type="hidden" id="applicationId">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Company Name *</label>
+                            <input type="text" id="companyName" required class="input-field" placeholder="e.g., Google">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Job Title *</label>
+                            <input type="text" id="jobTitle" required class="input-field"
+                                placeholder="e.g., Software Engineer">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Date Applied *</label>
+                            <input type="date" id="dateApplied" required class="input-field">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Status</label>
+                            <select id="status" class="input-field">
+                                <option value="applied">Applied</option>
+                                <option value="interview">Interview</option>
+                                <option value="offer">Offer</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="withdrawn">Withdrawn</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Location</label>
+                            <input type="text" id="location" class="input-field" placeholder="e.g., Remote, New York">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Salary Range</label>
+                            <input type="text" id="salary" class="input-field" placeholder="e.g., $100k - $120k">
+                        </div>
+                    </div>
+
                     <div>
-                        <label class="block text-sm font-medium mb-2">Status</label>
-                        <select id="status" class="input-field">
-                            <option value="applied">Applied</option>
-                            <option value="interview">Interview</option>
-                            <option value="offer">Offer</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="withdrawn">Withdrawn</option>
+                        <label class="block text-sm font-medium mb-2">Job Link</label>
+                        <input type="url" id="jobLink" class="input-field" placeholder="https://...">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Follow-up Reminder (days after
+                            application)</label>
+                        <input type="number" id="reminderDays" class="input-field" placeholder="7" value="7" min="1">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Notes</label>
+                        <textarea id="notes" rows="3" class="input-field" placeholder="Additional notes..."></textarea>
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <button type="submit"
+                            class="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium">
+                            Save Application
+                        </button>
+                        <button type="button" id="cancelModal"
+                            class="px-6 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all font-medium">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add HR Reply Modal -->
+        <div id="replyModal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass-card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold">Add HR Reply</h3>
+                    <button id="closeReplyModal"
+                        class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <form id="replyForm" class="space-y-4">
+                    <input type="hidden" id="replyApplicationId">
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Reply Date *</label>
+                        <input type="date" id="replyDate" required class="input-field">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Sentiment *</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <label class="sentiment-option">
+                                <input type="radio" name="sentiment" value="positive" required class="hidden">
+                                <div class="sentiment-card">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Positive</span>
+                                </div>
+                            </label>
+                            <label class="sentiment-option">
+                                <input type="radio" name="sentiment" value="neutral" required class="hidden">
+                                <div class="sentiment-card">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Neutral</span>
+                                </div>
+                            </label>
+                            <label class="sentiment-option">
+                                <input type="radio" name="sentiment" value="negative" required class="hidden">
+                                <div class="sentiment-card">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Negative</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Application Stage</label>
+                        <select id="replyStage" class="input-field">
+                            <option value="initial_screening">Initial Screening</option>
+                            <option value="interview">Interview Stage</option>
+                            <option value="offer">Offer Stage</option>
+                            <option value="rejection">Rejection</option>
                         </select>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium mb-2">Location</label>
-                        <input type="text" id="location" class="input-field" placeholder="e.g., Remote, New York">
+                        <label class="block text-sm font-medium mb-2">Reply Content *</label>
+                        <textarea id="replyContent" required rows="4" class="input-field"
+                            placeholder="Enter the HR reply..."></textarea>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Salary Range</label>
-                        <input type="text" id="salary" class="input-field" placeholder="e.g., $100k - $120k">
+
+                    <div class="flex gap-3 mt-6">
+                        <button type="submit"
+                            class="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium">
+                            Save Reply
+                        </button>
+                        <button type="button" id="cancelReplyModal"
+                            class="px-6 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all font-medium">
+                            Cancel
+                        </button>
                     </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Job Link</label>
-                    <input type="url" id="jobLink" class="input-field" placeholder="https://...">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Follow-up Reminder (days after application)</label>
-                    <input type="number" id="reminderDays" class="input-field" placeholder="7" value="7" min="1">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Notes</label>
-                    <textarea id="notes" rows="3" class="input-field" placeholder="Additional notes..."></textarea>
-                </div>
-
-                <div class="flex gap-3 mt-6">
-                    <button type="submit"
-                        class="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium">
-                        Save Application
-                    </button>
-                    <button type="button" id="cancelModal"
-                        class="px-6 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all font-medium">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add HR Reply Modal -->
-    <div id="replyModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content glass-card">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-2xl font-bold">Add HR Reply</h3>
-                <button id="closeReplyModal"
-                    class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                </form>
             </div>
-
-            <form id="replyForm" class="space-y-4">
-                <input type="hidden" id="replyApplicationId">
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Reply Date *</label>
-                    <input type="date" id="replyDate" required class="input-field">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Sentiment *</label>
-                    <div class="grid grid-cols-3 gap-3">
-                        <label class="sentiment-option">
-                            <input type="radio" name="sentiment" value="positive" required class="hidden">
-                            <div class="sentiment-card">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Positive</span>
-                            </div>
-                        </label>
-                        <label class="sentiment-option">
-                            <input type="radio" name="sentiment" value="neutral" required class="hidden">
-                            <div class="sentiment-card">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Neutral</span>
-                            </div>
-                        </label>
-                        <label class="sentiment-option">
-                            <input type="radio" name="sentiment" value="negative" required class="hidden">
-                            <div class="sentiment-card">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Negative</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Application Stage</label>
-                    <select id="replyStage" class="input-field">
-                        <option value="initial_screening">Initial Screening</option>
-                        <option value="interview">Interview Stage</option>
-                        <option value="offer">Offer Stage</option>
-                        <option value="rejection">Rejection</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Reply Content *</label>
-                    <textarea id="replyContent" required rows="4" class="input-field"
-                        placeholder="Enter the HR reply..."></textarea>
-                </div>
-
-                <div class="flex gap-3 mt-6">
-                    <button type="submit"
-                        class="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-medium">
-                        Save Reply
-                    </button>
-                    <button type="button" id="cancelReplyModal"
-                        class="px-6 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all font-medium">
-                        Cancel
-                    </button>
-                </div>
-            </form>
         </div>
+
     </div>
 
     <!-- Scripts -->
