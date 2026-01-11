@@ -33,6 +33,11 @@ class JobTracker {
         this.updateReminders();
         this.updateReplies();
         this.updateAnalytics();
+
+        // Sync to cloud if user is signed in
+        if (window.firebaseAuth && window.firebaseAuth.getCurrentUser()) {
+            window.firebaseAuth.syncToCloud(this.applications);
+        }
     }
 
     generateId() {
@@ -95,6 +100,21 @@ class JobTracker {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dateApplied').value = today;
         document.getElementById('replyDate').value = today;
+
+        // Firebase Auth Buttons
+        document.getElementById('signInBtn')?.addEventListener('click', () => {
+            if (window.firebaseAuth) {
+                window.firebaseAuth.signIn();
+            } else {
+                alert('Firebase authentication is not yet configured. Please contact support.');
+            }
+        });
+
+        document.getElementById('signOutBtn')?.addEventListener('click', () => {
+            if (window.firebaseAuth) {
+                window.firebaseAuth.signOut();
+            }
+        });
     }
 
     // Tab Switching
@@ -123,7 +143,7 @@ class JobTracker {
         const total = this.applications.length;
         const withReplies = this.applications.filter(app => app.hrReplies && app.hrReplies.length > 0).length;
         const offers = this.applications.filter(app => app.status === 'offer').length;
-        
+
         document.getElementById('totalApplications').textContent = total;
         document.getElementById('pendingFollowups').textContent = this.getPendingFollowups().length;
         document.getElementById('responseRate').textContent = total > 0 ? Math.round((withReplies / total) * 100) + '%' : '0%';
@@ -133,7 +153,7 @@ class JobTracker {
     getPendingFollowups() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        
+
         return this.applications.filter(app => {
             if (!app.followUpDate || app.status === 'rejected' || app.status === 'withdrawn' || app.status === 'offer') {
                 return false;
@@ -149,7 +169,7 @@ class JobTracker {
         this.editingId = applicationId;
         const modal = document.getElementById('applicationModal');
         const form = document.getElementById('applicationForm');
-        
+
         if (applicationId) {
             const app = this.applications.find(a => a.id === applicationId);
             if (app) {
@@ -171,7 +191,7 @@ class JobTracker {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('dateApplied').value = today;
         }
-        
+
         modal.classList.remove('hidden');
     }
 
@@ -183,7 +203,7 @@ class JobTracker {
 
     saveApplication(e) {
         e.preventDefault();
-        
+
         const formData = {
             companyName: document.getElementById('companyName').value.trim(),
             jobTitle: document.getElementById('jobTitle').value.trim(),
@@ -239,7 +259,7 @@ class JobTracker {
     renderApplications() {
         const container = document.getElementById('applicationsList');
         const emptyState = document.getElementById('emptyState');
-        
+
         let filtered = this.filterApplications();
         filtered = this.sortApplications(filtered);
 
@@ -250,7 +270,7 @@ class JobTracker {
         }
 
         emptyState.classList.add('hidden');
-        
+
         container.innerHTML = filtered.map(app => this.createApplicationCard(app)).join('');
 
         // Add event listeners to action buttons
@@ -263,19 +283,19 @@ class JobTracker {
 
     filterApplications() {
         return this.applications.filter(app => {
-            const matchesSearch = !this.currentFilter.search || 
+            const matchesSearch = !this.currentFilter.search ||
                 app.companyName.toLowerCase().includes(this.currentFilter.search.toLowerCase()) ||
                 app.jobTitle.toLowerCase().includes(this.currentFilter.search.toLowerCase());
-            
+
             const matchesStatus = !this.currentFilter.status || app.status === this.currentFilter.status;
-            
+
             return matchesSearch && matchesStatus;
         });
     }
 
     sortApplications(apps) {
         const sorted = [...apps];
-        
+
         switch (this.currentFilter.sort) {
             case 'dateDesc':
                 sorted.sort((a, b) => new Date(b.dateApplied) - new Date(a.dateApplied));
@@ -290,14 +310,14 @@ class JobTracker {
                 sorted.sort((a, b) => a.status.localeCompare(b.status));
                 break;
         }
-        
+
         return sorted;
     }
 
     createApplicationCard(app) {
         const reminderStatus = this.getReminderStatus(app);
         const hasReplies = app.hrReplies && app.hrReplies.length > 0;
-        
+
         return `
             <div class="application-card fade-in">
                 <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
@@ -385,7 +405,7 @@ class JobTracker {
         today.setHours(0, 0, 0, 0);
         const followUpDate = new Date(app.followUpDate);
         followUpDate.setHours(0, 0, 0, 0);
-        
+
         const diffDays = Math.ceil((followUpDate - today) / (1000 * 60 * 60 * 24));
 
         if (diffDays < 0) {
@@ -414,7 +434,7 @@ class JobTracker {
 
     saveReply(e) {
         e.preventDefault();
-        
+
         const applicationId = document.getElementById('replyApplicationId').value;
         const replyData = {
             id: 'reply_' + Date.now(),
@@ -441,7 +461,7 @@ class JobTracker {
     updateReminders() {
         const container = document.getElementById('remindersList');
         const emptyState = document.getElementById('remindersEmptyState');
-        
+
         const reminders = this.getPendingFollowups();
 
         if (reminders.length === 0) {
@@ -451,7 +471,7 @@ class JobTracker {
         }
 
         emptyState.classList.add('hidden');
-        
+
         // Sort by follow-up date
         reminders.sort((a, b) => new Date(a.followUpDate) - new Date(b.followUpDate));
 
@@ -490,7 +510,7 @@ class JobTracker {
     updateReplies() {
         const container = document.getElementById('repliesList');
         const emptyState = document.getElementById('repliesEmptyState');
-        
+
         const appsWithReplies = this.applications.filter(app => app.hrReplies && app.hrReplies.length > 0);
 
         if (appsWithReplies.length === 0) {
@@ -500,7 +520,7 @@ class JobTracker {
         }
 
         emptyState.classList.add('hidden');
-        
+
         container.innerHTML = appsWithReplies.map(app => {
             return `
                 <div class="glass-card p-5 rounded-xl">
@@ -517,11 +537,10 @@ class JobTracker {
                             <div class="reply-card reply-${reply.sentiment}">
                                 <div class="flex items-center justify-between mb-2">
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs font-semibold uppercase px-2 py-1 rounded ${
-                                            reply.sentiment === 'positive' ? 'bg-green-500/20 text-green-400' :
-                                            reply.sentiment === 'negative' ? 'bg-red-500/20 text-red-400' :
-                                            'bg-blue-500/20 text-blue-400'
-                                        }">
+                                        <span class="text-xs font-semibold uppercase px-2 py-1 rounded ${reply.sentiment === 'positive' ? 'bg-green-500/20 text-green-400' :
+                    reply.sentiment === 'negative' ? 'bg-red-500/20 text-red-400' :
+                        'bg-blue-500/20 text-blue-400'
+                }">
                                             ${reply.sentiment}
                                         </span>
                                         <span class="text-xs text-gray-400">${this.formatStage(reply.stage)}</span>
