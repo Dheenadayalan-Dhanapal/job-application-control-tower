@@ -130,6 +130,35 @@ class JobTracker {
         document.getElementById('exportDashboardBtn').addEventListener('click', () => this.exportData());
         document.getElementById('importDashboardBtn').addEventListener('click', () => this.importData());
 
+        // AI Smart Paste Listeners
+        document.getElementById('toggleSmartPaste').addEventListener('click', () => {
+            const section = document.getElementById('smartPasteSection');
+            const btn = document.getElementById('toggleSmartPaste');
+            section.classList.toggle('hidden');
+            btn.textContent = section.classList.contains('hidden') ? 'Show Smart Paste' : 'Hide Smart Paste';
+        });
+
+        document.getElementById('applySmartPaste').addEventListener('click', () => this.applySmartPaste());
+
+        // AI Assistant Listeners
+        document.getElementById('closeAssistantModal').addEventListener('click', () => this.closeAssistantModal());
+        document.getElementById('closeAssistantBtn').addEventListener('click', () => this.closeAssistantModal());
+        document.querySelectorAll('.assistant-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => this.switchAssistantTab(e.target.dataset.tab));
+        });
+        document.getElementById('emailTone').addEventListener('change', () => this.generateFollowupEmail());
+        document.getElementById('regenerateAssistant').addEventListener('click', () => {
+            const activeTab = document.querySelector('.assistant-tab.active').dataset.tab;
+            if (activeTab === 'followup') this.generateFollowupEmail();
+            else this.generateInterviewPrep();
+        });
+        document.getElementById('copyAssistantOutput').addEventListener('click', () => {
+            const text = document.getElementById('aiOutputText').value;
+            navigator.clipboard.writeText(text).then(() => {
+                if (window.showNotification) window.showNotification('Copied to clipboard!', 'success');
+            });
+        });
+
         // Close modal on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
@@ -246,49 +275,112 @@ class JobTracker {
 
     saveApplication(e) {
         e.preventDefault();
-
-        const formData = {
-            companyName: document.getElementById('companyName').value.trim(),
-            jobTitle: document.getElementById('jobTitle').value.trim(),
+        const id = document.getElementById('applicationId').value;
+        const app = {
+            id: id || this.generateId(),
+            companyName: document.getElementById('companyName').value,
+            jobTitle: document.getElementById('jobTitle').value,
             dateApplied: document.getElementById('dateApplied').value,
             status: document.getElementById('status').value,
-            location: document.getElementById('location').value.trim(),
-            salary: document.getElementById('salary').value.trim(),
-            jobLink: document.getElementById('jobLink').value.trim(),
+            location: document.getElementById('location').value,
+            salary: document.getElementById('salary').value,
+            jobLink: document.getElementById('jobLink').value,
             reminderDays: parseInt(document.getElementById('reminderDays').value) || 7,
-            notes: document.getElementById('notes').value.trim(),
+            notes: document.getElementById('notes').value,
+            hrReplies: id ? (this.applications.find(a => a.id === id)?.hrReplies || []) : [],
+            createdAt: id ? (this.applications.find(a => a.id === id)?.createdAt || new Date().toISOString()) : new Date().toISOString(),
+            updatedAt: new Date().toISOString()
         };
 
         // Calculate follow-up date
-        const appliedDate = new Date(formData.dateApplied);
+        const appliedDate = new Date(app.dateApplied);
         const followUpDate = new Date(appliedDate);
-        followUpDate.setDate(followUpDate.getDate() + formData.reminderDays);
-        formData.followUpDate = followUpDate.toISOString().split('T')[0];
+        followUpDate.setDate(followUpDate.getDate() + app.reminderDays);
+        app.followUpDate = followUpDate.toISOString().split('T')[0];
 
-        if (this.editingId) {
-            // Update existing
-            const index = this.applications.findIndex(a => a.id === this.editingId);
+        if (id) {
+            const index = this.applications.findIndex(a => a.id === id);
             if (index !== -1) {
-                this.applications[index] = {
-                    ...this.applications[index],
-                    ...formData,
-                    updatedAt: new Date().toISOString()
-                };
+                this.applications[index] = app;
             }
         } else {
-            // Create new
-            const newApplication = {
-                id: this.generateId(),
-                ...formData,
-                hrReplies: [],
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            this.applications.push(newApplication);
+            this.applications.push(app);
         }
 
         this.saveData();
         this.closeApplicationModal();
+    }
+
+    applySmartPaste() {
+        const input = document.getElementById('smartPasteInput').value;
+        if (!input) return;
+
+        const details = this.smartParseJD(input);
+
+        if (details.company) document.getElementById('companyName').value = details.company;
+        if (details.role) document.getElementById('jobTitle').value = details.role;
+        if (details.location) document.getElementById('location').value = details.location;
+        if (details.salary) document.getElementById('salary').value = details.salary;
+        if (details.link) document.getElementById('jobLink').value = details.link;
+
+        if (window.showNotification) {
+            window.showNotification('Details extracted successfully!', 'success');
+        } else if (this.showNotification) {
+            this.showNotification('Details extracted successfully!', 'success');
+        }
+
+        // Hide smart paste section after applying
+        document.getElementById('smartPasteSection').classList.add('hidden');
+        document.getElementById('toggleSmartPaste').textContent = 'Show Smart Paste';
+    }
+
+    smartParseJD(text) {
+        const details = {
+            company: null,
+            role: null,
+            location: null,
+            salary: null,
+            link: null
+        };
+
+        const linkMatch = text.match(/https?:\/\/[^\s]+/);
+        if (linkMatch) details.link = linkMatch[0];
+
+        const salaryMatch = text.match(/\$?\d{2,3},?\d{0,3}k?(\s?-\s?\$?\d{2,3},?\d{0,3}k?)?/i);
+        if (salaryMatch) details.salary = salaryMatch[0];
+
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+        for (let i = 0; i < Math.min(lines.length, 10); i++) {
+            const line = lines[i];
+            const atMatch = line.match(/(.+)\sat\s([A-Z][a-zA-Z0-9\s\.\&]+)/);
+            if (atMatch && !details.role) {
+                details.role = atMatch[1].trim();
+                if (!details.company) details.company = atMatch[2].trim();
+            }
+
+            const titles = ['Software Engineer', 'Developer', 'Designer', 'Product Manager', 'Data Scientist', 'Analyst', 'Architect', 'Consultant'];
+            titles.forEach(t => {
+                if (line.toLowerCase().includes(t.toLowerCase()) && !details.role) {
+                    details.role = t;
+                }
+            });
+
+            const hiringMatch = line.match(/([A-Z][a-zA-Z0-9\s\.\&]+)\sis\s(hiring|looking for)\s(.+)/i);
+            if (hiringMatch) {
+                if (!details.company) details.company = hiringMatch[1].trim();
+                if (!details.role) details.role = hiringMatch[3].split('(')[0].trim();
+            }
+        }
+
+        const locations = ['Remote', 'New York', 'San Francisco', 'London', 'Berlin', 'Austin', 'Seattle', 'Toronto', 'Chicago', 'Boston', 'India'];
+        locations.forEach(l => {
+            if (text.toLowerCase().includes(l.toLowerCase()) && !details.location) {
+                details.location = l;
+            }
+        });
+
+        return details;
     }
 
     deleteApplication(id) {
@@ -296,6 +388,96 @@ class JobTracker {
             this.applications = this.applications.filter(a => a.id !== id);
             this.saveData();
         }
+    }
+
+    // AI Assistant Methods
+    openAIAssistant(id) {
+        this.currentAIAppId = id;
+        const app = this.applications.find(a => a.id === id);
+        if (!app) return;
+
+        document.getElementById('assistantSubTitle').textContent = `Generating strategy for ${app.companyName}`;
+        document.getElementById('aiAssistantModal').classList.remove('hidden');
+
+        // Default to follow-up tab
+        this.switchAssistantTab('followup');
+        this.generateFollowupEmail();
+    }
+
+    closeAssistantModal() {
+        document.getElementById('aiAssistantModal').classList.add('hidden');
+        this.currentAIAppId = null;
+    }
+
+    switchAssistantTab(tabId) {
+        document.querySelectorAll('.assistant-tab').forEach(t => {
+            t.classList.remove('active', 'border-accent-purple', 'text-white');
+            t.classList.add('text-gray-400');
+        });
+        const activeTab = document.querySelector(`.assistant-tab[data-tab="${tabId}"]`);
+        activeTab.classList.add('active', 'border-accent-purple', 'text-white');
+        activeTab.classList.remove('text-gray-400');
+
+        document.querySelectorAll('.assistant-pane').forEach(p => p.classList.add('hidden'));
+        document.getElementById(`${tabId}Tab`).classList.remove('hidden');
+
+        if (tabId === 'prep') this.generateInterviewPrep();
+        else this.generateFollowupEmail();
+    }
+
+    generateFollowupEmail() {
+        const app = this.applications.find(a => a.id === this.currentAIAppId);
+        if (!app) return;
+
+        const tone = document.getElementById('emailTone').value;
+        const output = document.getElementById('aiOutputText');
+        output.value = "AI is thinking...";
+
+        setTimeout(() => {
+            let body = "";
+            const company = app.companyName;
+            const role = app.jobTitle;
+
+            if (tone === 'professional') {
+                body = `Subject: Follow-up: ${role} application - [Your Name]\n\nDear Hiring Team at ${company},\n\nI hope this email finds you well. I am writing to reaffirm my strong interest in the ${role} position I applied for on ${app.dateApplied}.\n\nI remain very impressed by ${company}'s work in the industry and would love the opportunity to discuss how my skills align with your goals. Could you please provide a brief update on the status of my application?\n\nThank you for your time and consideration.\n\nBest regards,\n[Your Name]`;
+            } else if (tone === 'enthusiastic') {
+                body = `Subject: Quick Note: Checking in on ${role} at ${company}!\n\nHi Team,\n\nI'm still buzzing about the ${role} opening at ${company}! I wanted to check in and see how the hiring process is moving along.\n\nI'm particularly excited about your recent growth and am eager to potentially contribute to the team. Looking forward to hearing from you!\n\nBest,\n[Your Name]`;
+            } else {
+                body = `Subject: Update Request: ${role} application\n\nHi,\n\nI'm following up on my application for the ${role} role (submitted ${app.dateApplied}). \n\nI'd appreciate a quick update on the timeline for next steps. Thank you!\n\nRegards,\n[Your Name]`;
+            }
+            output.value = body;
+        }, 500);
+    }
+
+    generateInterviewPrep() {
+        const app = this.applications.find(a => a.id === this.currentAIAppId);
+        if (!app) return;
+
+        const container = document.getElementById('interviewPrepContent');
+        container.innerHTML = `<div class="text-center py-8"><span class="loading"></span> Analyzing job requirements...</div>`;
+
+        setTimeout(() => {
+            const role = app.jobTitle.toLowerCase();
+            let questions = [
+                { q: "Why do you want to work at " + app.companyName + "?", a: "Focus on their mission and specific recent products/news." },
+                { q: "Tell me about a difficult technical challenge you solved.", a: "Use the STAR method (Situation, Task, Action, Result)." },
+                { q: "Where do you see yourself in 5 years?", a: "Align your growth with the potential career path in this role." }
+            ];
+
+            if (role.includes('engineer') || role.includes('developer')) {
+                questions.unshift(
+                    { q: "Explain a complex architectural decision you made.", a: "Focus on trade-offs and 'Why' instead of just 'How'." },
+                    { q: "How do you handle technical debt?", a: "Explain balancing speed with quality and communication with stakeholders." }
+                );
+            }
+
+            container.innerHTML = questions.map(item => `
+                <div class="p-4 rounded-xl bg-gray-900 border border-gray-800">
+                    <p class="text-accent-purple font-bold text-sm mb-2">Q: ${item.q}</p>
+                    <p class="text-gray-400 text-xs">AI Tip: ${item.a}</p>
+                </div>
+            `).join('');
+        }, 800);
     }
 
     // Render Applications
@@ -338,6 +520,7 @@ class JobTracker {
             document.querySelector(`[data-edit-id="${app.id}"]`)?.addEventListener('click', () => this.openApplicationModal(app.id));
             document.querySelector(`[data-delete-id="${app.id}"]`)?.addEventListener('click', () => this.deleteApplication(app.id));
             document.querySelector(`[data-reply-id="${app.id}"]`)?.addEventListener('click', () => this.openReplyModal(app.id));
+            document.querySelector(`[data-ai-id="${app.id}"]`)?.addEventListener('click', () => this.openAIAssistant(app.id));
         });
     }
 
@@ -449,6 +632,15 @@ class JobTracker {
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
+                        </button>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800/50 flex justify-between items-center">
+                        <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Intelligent Actions</span>
+                        <button class="px-3 py-1.5 rounded-lg bg-accent-purple/10 hover:bg-accent-purple/20 text-accent-purple text-xs font-bold transition-all border border-accent-purple/20 flex items-center gap-2" data-ai-id="${app.id}">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            AI Assistant
                         </button>
                     </div>
                 </div>

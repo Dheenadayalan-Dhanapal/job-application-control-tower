@@ -7,8 +7,11 @@ class AnalyticsManager {
 
     updateInsights() {
         const container = document.getElementById('insightsList');
+        const coachContainer = document.getElementById('coachAdviceContainer');
         const insights = this.generateInsights();
+        const advice = this.generateCoachAdvice();
 
+        // Render standard insights
         if (insights.length === 0) {
             container.innerHTML = `
                 <div class="text-center py-8 text-gray-400">
@@ -16,25 +19,39 @@ class AnalyticsManager {
                     <p class="text-sm mt-2">Add more applications to see patterns and recommendations.</p>
                 </div>
             `;
-            return;
-        }
-
-        container.innerHTML = insights.map(insight => `
-            <div class="insight-card insight-${insight.type}">
-                <div class="flex items-start gap-3">
-                    <div class="mt-1">
-                        ${this.getInsightIcon(insight.type)}
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-1">${insight.title}</h4>
-                        <p class="text-sm text-gray-300">${insight.description}</p>
-                        ${insight.recommendation ? `
-                            <p class="text-xs text-gray-400 mt-2">💡 ${insight.recommendation}</p>
-                        ` : ''}
+        } else {
+            container.innerHTML = insights.map(insight => `
+                <div class="insight-card insight-${insight.type}">
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1">
+                            ${this.getInsightIcon(insight.type)}
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">${insight.title}</h4>
+                            <p class="text-sm text-gray-300">${insight.description}</p>
+                            ${insight.recommendation ? `
+                                <p class="text-xs text-gray-400 mt-2">💡 ${insight.recommendation}</p>
+                            ` : ''}
+                        </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+        }
+
+        // Render AI Coach Advice
+        if (advice.length === 0) {
+            coachContainer.innerHTML = `<div class="col-span-full py-8 text-center text-gray-400 italic">No patterns detected yet. Keep active to receive coaching!</div>`;
+        } else {
+            coachContainer.innerHTML = advice.map(item => `
+                <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700 hover:border-accent-purple/50 transition-all group">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xl">${item.emoji}</span>
+                        <h4 class="font-bold text-accent-purple group-hover:text-white transition-colors">${item.title}</h4>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed">${item.message}</p>
+                </div>
+            `).join('');
+        }
     }
 
     generateInsights() {
@@ -162,6 +179,77 @@ class AnalyticsManager {
         }
 
         return insights;
+    }
+
+    generateCoachAdvice() {
+        const advice = [];
+        const apps = this.jobTracker.applications;
+        if (apps.length < 3) return advice;
+
+        const rejections = apps.filter(app => app.status === 'rejected');
+        const offers = apps.filter(app => app.status === 'offer');
+        const interviews = apps.filter(app => app.status === 'interview');
+
+        // Pattern: ghosting (lots of applications, few replies)
+        const appsWithReplies = apps.filter(app => app.hrReplies && app.hrReplies.length > 0);
+        if (apps.length >= 10 && appsWithReplies.length < apps.length * 0.2) {
+            advice.push({
+                title: 'Resume Visibility Alert',
+                emoji: '🔎',
+                message: 'Your response rate is lower than average. Consider running your resume through an ATS checker or tailoring your "Skills" section for each role.'
+            });
+        }
+
+        // Pattern: Screening Wall
+        const screeningRejections = apps.filter(app =>
+            app.hrReplies && app.hrReplies.some(r => r.stage === 'initial_screening' && r.sentiment === 'negative')
+        );
+        if (screeningRejections.length >= 3) {
+            advice.push({
+                title: 'Screening Bridge',
+                emoji: '📢',
+                message: 'You are facing repeated rejections at the screening stage. Focus on practicing your "elevator pitch" and research common culture-fit questions.'
+            });
+        }
+
+        // Pattern: Closing Gap
+        if (interviews.length >= 3 && offers.length === 0) {
+            advice.push({
+                title: 'High-Impact Interviewing',
+                emoji: '🤝',
+                message: 'You are clearly a strong candidate on paper! The bottleneck is the final stage. Consider mock interviews focusing on behavioral STAR method examples.'
+            });
+        }
+
+        // Pattern: Strategic Focus
+        if (rejections.length >= 5) {
+            const rejectedRoles = this.groupBy(rejections, 'jobTitle');
+            const sortedRoles = Object.entries(rejectedRoles).sort((a, b) => b[1].length - a[1].length);
+            if (sortedRoles[0][1].length >= 3) {
+                advice.push({
+                    title: 'Strategic Pivot',
+                    emoji: '🎯',
+                    message: `You have had several rejections for "${sortedRoles[0][0]}" roles. Try expanding your search to adjacent titles like "${sortedRoles[0][0]} II" or "Senior ${sortedRoles[0][0]}".`
+                });
+            }
+        }
+
+        // Pattern: Volume and Consistency
+        const recentApps = apps.filter(app => {
+            const appDate = new Date(app.dateApplied);
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            return appDate >= sevenDaysAgo;
+        });
+        if (recentApps.length === 0) {
+            advice.push({
+                title: 'Momentum Check',
+                emoji: '⚡',
+                message: "You haven't added any new applications this week. Consistency is key to a fast job search. Can you find 3 interesting roles today?"
+            });
+        }
+
+        return advice;
     }
 
     calculateAverageResponseTime() {

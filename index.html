@@ -456,6 +456,35 @@
                             </div>
                         </div>
 
+                        <!-- AI Career Coach Section -->
+                        <div
+                            class="glass-card rounded-2xl p-6 border-l-4 border-accent-purple overflow-hidden relative">
+                            <div class="absolute top-0 right-0 p-4 opacity-10">
+                                <svg class="w-24 h-24 text-accent-purple" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-accent-purple/20 flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-2xl font-bold text-white">Coach's Desk <span
+                                        class="text-xs font-normal text-accent-purple ml-2 px-2 py-1 bg-accent-purple/10 rounded-full">AI
+                                        POWERED</span></h2>
+                            </div>
+                            <div id="coachAdviceContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- AI Advice will be rendered here -->
+                                <div class="col-span-full py-8 text-center text-gray-400 italic">
+                                    Analyzing your application patterns to prepare expert advice...
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Insights Panel -->
                         <div class="glass-card rounded-2xl p-6">
                             <h3 class="text-xl font-bold mb-4">Key Insights</h3>
@@ -485,6 +514,36 @@
                 </div>
 
                 <form id="applicationForm" class="space-y-4">
+                    <!-- AI Smart Paste Section -->
+                    <div class="bg-accent-purple/5 border border-accent-purple/20 rounded-xl p-4 mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="flex h-2 w-2 rounded-full bg-accent-purple animate-pulse"></span>
+                                <label class="text-sm font-bold text-accent-purple uppercase tracking-wider">AI Smart
+                                    Add</label>
+                            </div>
+                            <button type="button" id="toggleSmartPaste"
+                                class="text-xs text-gray-400 hover:text-white transition-colors underline">
+                                Show Smart Paste
+                            </button>
+                        </div>
+                        <div id="smartPasteSection" class="hidden">
+                            <p class="text-xs text-gray-400 mb-3">Paste the job description or LinkedIn URL below, and
+                                our AI will extract the details for you.</p>
+                            <textarea id="smartPasteInput" rows="4"
+                                class="input-field mb-3 focus:border-accent-purple text-sm"
+                                placeholder="Paste recruiter message or job description here..."></textarea>
+                            <button type="button" id="applySmartPaste"
+                                class="w-full py-2 rounded-lg bg-accent-purple/20 hover:bg-accent-purple/30 text-accent-purple text-sm font-bold transition-all border border-accent-purple/30 flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Extract Details
+                            </button>
+                        </div>
+                    </div>
+
                     <input type="hidden" id="applicationId">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
