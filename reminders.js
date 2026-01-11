@@ -36,20 +36,6 @@ class RemindersManager {
             const badge = document.createElement('span');
             badge.className = 'notification-badge';
             badge.textContent = count;
-            badge.style.cssText = `
-                position: absolute;
-                top: -4px;
-                right: -4px;
-                background: linear-gradient(135deg, #ef4444, #dc2626);
-                color: white;
-                font-size: 10px;
-                font-weight: bold;
-                padding: 2px 6px;
-                border-radius: 10px;
-                min-width: 18px;
-                text-align: center;
-                box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-            `;
             remindersTab.style.position = 'relative';
             remindersTab.appendChild(badge);
         }

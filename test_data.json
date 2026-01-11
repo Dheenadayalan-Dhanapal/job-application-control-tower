@@ -1,0 +1,436 @@
+[
+    {
+        "id": "test_1",
+        "companyName": "Google",
+        "jobTitle": "Senior frontend Engineer",
+        "dateApplied": "2026-01-01",
+        "status": "interview",
+        "location": "Remote",
+        "salary": "$180k - $220k",
+        "jobLink": "https://google.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-08",
+        "notes": "First round cleared. Waiting for technical round.",
+        "hrReplies": [
+            {
+                "id": "reply_1",
+                "date": "2026-01-03",
+                "sentiment": "positive",
+                "stage": "initial_screening",
+                "content": "Moving forward to technical rounds!"
+            }
+        ]
+    },
+    {
+        "id": "test_2",
+        "companyName": "Meta",
+        "jobTitle": "Product Designer",
+        "dateApplied": "2025-12-15",
+        "status": "rejected",
+        "location": "Menlo Park, CA",
+        "salary": "$160k",
+        "jobLink": "https://meta.com/careers",
+        "reminderDays": 5,
+        "followUpDate": "2025-12-20",
+        "notes": "Rejected after 3rd round.",
+        "hrReplies": [
+            {
+                "id": "reply_2",
+                "date": "2026-01-05",
+                "sentiment": "negative",
+                "stage": "rejection",
+                "content": "Unfortunately, we are moving with other candidates."
+            }
+        ]
+    },
+    {
+        "id": "test_3",
+        "companyName": "Amazon",
+        "jobTitle": "SDE-2",
+        "dateApplied": "2026-01-05",
+        "status": "applied",
+        "location": "Seattle, WA",
+        "salary": "$190k",
+        "jobLink": "https://amazon.jobs",
+        "reminderDays": 10,
+        "followUpDate": "2026-01-15",
+        "notes": "Referral from ex-colleague.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_4",
+        "companyName": "Netflix",
+        "jobTitle": "UI Engineer",
+        "dateApplied": "2025-12-10",
+        "status": "offer",
+        "location": "Los Gatos, CA",
+        "salary": "$250k",
+        "jobLink": "https://netflix.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2025-12-17",
+        "notes": "Contract signed!",
+        "hrReplies": [
+            {
+                "id": "reply_4",
+                "date": "2026-01-02",
+                "sentiment": "positive",
+                "stage": "offer",
+                "content": "Official offer letter sent."
+            }
+        ]
+    },
+    {
+        "id": "test_5",
+        "companyName": "Stripe",
+        "jobTitle": "Fullstack Developer",
+        "dateApplied": "2026-01-08",
+        "status": "applied",
+        "location": "Remote",
+        "salary": "$200k",
+        "jobLink": "https://stripe.com/jobs",
+        "reminderDays": 3,
+        "followUpDate": "2026-01-11",
+        "notes": "Pending follow-up.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_6",
+        "companyName": "AirBnB",
+        "jobTitle": "Software Engineer",
+        "dateApplied": "2026-01-02",
+        "status": "rejected",
+        "location": "San Francisco",
+        "salary": "$180k",
+        "jobLink": "https://airbnb.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-09",
+        "notes": "Automated rejection.",
+        "hrReplies": [
+            {
+                "id": "reply_6",
+                "date": "2026-01-03",
+                "sentiment": "negative",
+                "stage": "initial_screening",
+                "content": "We've decided not to move forward."
+            }
+        ]
+    },
+    {
+        "id": "test_7",
+        "companyName": "Apple",
+        "jobTitle": "iOS Developer",
+        "dateApplied": "2026-01-06",
+        "status": "interview",
+        "location": "Cupertino, CA",
+        "salary": "$210k",
+        "jobLink": "https://apple.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-13",
+        "notes": "Completed home assignment.",
+        "hrReplies": [
+            {
+                "id": "reply_7",
+                "date": "2026-01-08",
+                "sentiment": "neutral",
+                "stage": "initial_screening",
+                "content": "Thanks for your submission. Reviewing now."
+            }
+        ]
+    },
+    {
+        "id": "test_8",
+        "companyName": "Microsoft",
+        "jobTitle": "Cloud Architect",
+        "dateApplied": "2025-11-20",
+        "status": "withdrawn",
+        "location": "Redmond, WA",
+        "salary": "$220k",
+        "jobLink": "https://careers.microsoft.com",
+        "reminderDays": 14,
+        "followUpDate": "2025-12-04",
+        "notes": "Withdrawn due to Netflix offer.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_9",
+        "companyName": "Uber",
+        "jobTitle": "Backend Engineer",
+        "dateApplied": "2026-01-04",
+        "status": "rejected",
+        "location": "Remote",
+        "salary": "$190k",
+        "jobLink": "https://uber.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-11",
+        "notes": "System design round was tough.",
+        "hrReplies": [
+            {
+                "id": "reply_9",
+                "date": "2026-01-10",
+                "sentiment": "negative",
+                "stage": "interview",
+                "content": "No match for current needs."
+            }
+        ]
+    },
+    {
+        "id": "test_10",
+        "companyName": "DoorDash",
+        "jobTitle": "Web Developer",
+        "dateApplied": "2026-01-07",
+        "status": "applied",
+        "location": "San Francisco",
+        "salary": "$160k - $180k",
+        "jobLink": "https://doordash.com/careers",
+        "reminderDays": 5,
+        "followUpDate": "2026-01-12",
+        "notes": "Applied via LinkedIn.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_11",
+        "companyName": "Spotify",
+        "jobTitle": "Software Engineer (Web)",
+        "dateApplied": "2026-01-01",
+        "status": "rejected",
+        "location": "New York",
+        "salary": "$175k",
+        "jobLink": "https://spotify.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-08",
+        "notes": "Rejection from HR call.",
+        "hrReplies": [
+            {
+                "id": "reply_11",
+                "date": "2026-01-02",
+                "sentiment": "negative",
+                "stage": "initial_screening",
+                "content": "Position on hold."
+            }
+        ]
+    },
+    {
+        "id": "test_12",
+        "companyName": "Tesla",
+        "jobTitle": "Hardware Engineer",
+        "dateApplied": "2026-01-05",
+        "status": "applied",
+        "location": "Austin, TX",
+        "salary": "$180k",
+        "jobLink": "https://tesla.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-12",
+        "notes": "Direct through portal.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_13",
+        "companyName": "Palantir",
+        "jobTitle": "Forward Deployed Engineer",
+        "dateApplied": "2026-01-03",
+        "status": "interview",
+        "location": "London, UK",
+        "salary": "£120k",
+        "jobLink": "https://palantir.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-10",
+        "notes": "Passed technical assessment.",
+        "hrReplies": [
+            {
+                "id": "reply_13",
+                "date": "2026-01-05",
+                "sentiment": "positive",
+                "stage": "initial_screening",
+                "content": "Move to coding interview."
+            }
+        ]
+    },
+    {
+        "id": "test_14",
+        "companyName": "OpenAI",
+        "jobTitle": "Research Engineer",
+        "dateApplied": "2026-01-09",
+        "status": "applied",
+        "location": "San Francisco",
+        "salary": "$250k - $400k",
+        "jobLink": "https://openai.com/jobs",
+        "reminderDays": 14,
+        "followUpDate": "2026-01-23",
+        "notes": "Extremely competitive.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_15",
+        "companyName": "Scale AI",
+        "jobTitle": "ML Engineer",
+        "dateApplied": "2025-12-28",
+        "status": "rejected",
+        "location": "Remote",
+        "salary": "$230k",
+        "jobLink": "https://scale.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-04",
+        "notes": "Rejected after final onsite.",
+        "hrReplies": [
+            {
+                "id": "reply_15",
+                "date": "2026-01-06",
+                "sentiment": "negative",
+                "stage": "interview",
+                "content": "Better candidates elsewhere."
+            }
+        ]
+    },
+    {
+        "id": "test_16",
+        "companyName": "Databricks",
+        "jobTitle": "Solutions Architect",
+        "dateApplied": "2026-01-01",
+        "status": "offer",
+        "location": "Remote",
+        "salary": "$220k",
+        "jobLink": "https://databricks.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-08",
+        "notes": "Negotiating bonus.",
+        "hrReplies": [
+            {
+                "id": "reply_16",
+                "date": "2026-01-07",
+                "sentiment": "positive",
+                "stage": "offer",
+                "content": "Verbal offer given."
+            }
+        ]
+    },
+    {
+        "id": "test_17",
+        "companyName": "Pinterest",
+        "jobTitle": "Frontend Developer",
+        "dateApplied": "2026-01-06",
+        "status": "applied",
+        "location": "Remote",
+        "salary": "$170k",
+        "jobLink": "https://pinterest.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-13",
+        "notes": "Applied via Indeed.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_18",
+        "companyName": "Adobe",
+        "jobTitle": "Software Engineer II",
+        "dateApplied": "2026-01-02",
+        "status": "interview",
+        "location": "San Jose, CA",
+        "salary": "$185k",
+        "jobLink": "https://adobe.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-09",
+        "notes": "Final onsite scheduled for next week.",
+        "hrReplies": [
+            {
+                "id": "reply_18",
+                "date": "2026-01-05",
+                "sentiment": "positive",
+                "stage": "interview",
+                "content": "Technical interview went well. Moving to onsite."
+            }
+        ]
+    },
+    {
+        "id": "test_19",
+        "companyName": "Zoom",
+        "jobTitle": "Infrastructure Engineer",
+        "dateApplied": "2025-12-20",
+        "status": "rejected",
+        "location": "Remote",
+        "salary": "$170k",
+        "jobLink": "https://zoom.us/careers",
+        "reminderDays": 7,
+        "followUpDate": "2025-12-27",
+        "notes": "Ghosted then rejected.",
+        "hrReplies": [
+            {
+                "id": "reply_19",
+                "date": "2026-01-05",
+                "sentiment": "neutral",
+                "stage": "rejection",
+                "content": "Not interested at this time."
+            }
+        ]
+    },
+    {
+        "id": "test_20",
+        "companyName": "Reddit",
+        "jobTitle": "Backend Engineer",
+        "dateApplied": "2026-01-10",
+        "status": "applied",
+        "location": "Remote",
+        "salary": "$190k",
+        "jobLink": "https://reddit.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-17",
+        "notes": "Just submitted.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_21",
+        "companyName": "Discord",
+        "jobTitle": "Desktop Engineer",
+        "dateApplied": "2025-12-29",
+        "status": "rejected",
+        "location": "San Francisco",
+        "salary": "$180k",
+        "jobLink": "https://discord.com/jobs",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-05",
+        "notes": "Rejected after coding test.",
+        "hrReplies": [
+            {
+                "id": "reply_21",
+                "date": "2026-01-04",
+                "sentiment": "negative",
+                "stage": "initial_screening",
+                "content": "Test scores were low."
+            }
+        ]
+    },
+    {
+        "id": "test_22",
+        "companyName": "Cisco",
+        "jobTitle": "Network Engineer",
+        "dateApplied": "2026-01-02",
+        "status": "applied",
+        "location": "Raleigh, NC",
+        "salary": "$140k",
+        "jobLink": "https://cisco.com/careers",
+        "reminderDays": 7,
+        "followUpDate": "2026-01-09",
+        "notes": "Old school application process.",
+        "hrReplies": []
+    },
+    {
+        "id": "test_23",
+        "companyName": "Twitter (X)",
+        "jobTitle": "Staff SDE",
+        "dateApplied": "2026-01-04",
+        "status": "interview",
+        "location": "San Francisco",
+        "salary": "$300k",
+        "jobLink": "https://x.com/careers",
+        "reminderDays": 3,
+        "followUpDate": "2026-01-07",
+        "notes": "Fast-paced interview process.",
+        "hrReplies": [
+            {
+                "id": "reply_23",
+                "date": "2026-01-06",
+                "sentiment": "positive",
+                "stage": "interview",
+                "content": "Quick chat with EM done."
+            }
+        ]
+    }
+]
