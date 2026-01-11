@@ -565,15 +565,50 @@ body::before {
         gap: 8px;
     }
 
-    /* Header Mobile */
-    header .flex-row {
+    /* Header Mobile Refactor */
+    header .container>div.flex {
         flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
     }
 
-    header .text-3xl {
-        font-size: 1.5rem;
+    header div.flex.items-center.gap-3 {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* Handle the secondary action buttons in header */
+    header .flex.items-center.gap-3:last-child {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    header .flex.items-center.gap-3:last-child button {
+        flex: 1;
+        min-width: 100px;
+        font-size: 11px;
+        padding: 8px 4px;
+    }
+
+    header h1 {
+        font-size: 1.1rem !important;
+        line-height: 1.2;
+    }
+
+    /* Stats Mobile Fix */
+    .text-3xl {
+        font-size: 1.5rem !important;
+    }
+
+    .glass-card {
+        padding: 16px !important;
+    }
+
+    .glass-card .text-sm {
+        font-size: 12px;
     }
 
     /* Touch Targets */
@@ -604,15 +639,46 @@ body::before {
 
     /* Navigation Mobile */
     .nav-tabs-container {
-        margin: 0 -12px;
-        padding: 0 12px 12px 12px;
+        margin: 0 -4px;
+        padding: 4px;
         justify-content: flex-start;
-        gap: 8px;
+        gap: 6px;
+        background: rgba(17, 24, 39, 0.4);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs-container::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar for cleaner look */
     }
 
     .nav-tab {
         white-space: nowrap;
-        padding: 8px 16px;
+        padding: 8px 14px;
+        font-size: 11px;
+        min-width: fit-content;
+        flex: none;
+        /* Allow scrolling instead of shrinking */
+        text-align: center;
+    }
+
+    /* Full-width Add Button on Mobile */
+    #addAppBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Container Spacing */
+    main {
+        padding-top: 16px;
+        padding-bottom: 60px;
+    }
+
+    section {
+        margin-bottom: 24px;
     }
 }
 
