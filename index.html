@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description"
         content="Job Application Control Tower - Track applications, manage follow-ups, and analyze rejection patterns">
     <meta name="keywords" content="job tracker, application tracking, job search, career management">
@@ -56,11 +57,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
@@ -708,11 +704,16 @@
     </div>
 
     <!-- Scripts -->
-    <script src="firebase-auth.js"></script>
-    <script src="app.js"></script>
-    <script src="reminders.js"></script>
-    <script src="analytics.js"></script>
-    <script src="heatmap.js"></script>
+    <!-- Firebase SDK (Deferred for performance) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script src="firebase-auth.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="reminders.js" defer></script>
+    <script src="analytics.js" defer></script>
+    <script src="heatmap.js" defer></script>
 </body>
 
 </html>
