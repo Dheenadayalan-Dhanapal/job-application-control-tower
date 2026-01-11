@@ -52,6 +52,22 @@ function handleAuthStateChanged(user) {
         syncFromCloud();
     } else {
         console.log('User signed out');
+        // Clear local data on sign-out for privacy in multi-user environments
+        if (window.jobTracker) {
+            window.jobTracker.applications = [];
+            localStorage.removeItem('jobApplications');
+
+            // Re-render UI to empty state
+            window.jobTracker.updateStats();
+            window.jobTracker.renderApplications();
+            window.jobTracker.updateReminders();
+            window.jobTracker.updateReplies();
+            window.jobTracker.updateAnalytics();
+
+            // Clear any lingering notification badges
+            const badge = document.querySelector('.notification-badge');
+            if (badge) badge.remove();
+        }
     }
 }
 
