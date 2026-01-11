@@ -525,15 +525,65 @@ body::before {
     border-color: #f87171;
 }
 
-/* Responsive */
+/* Responsive Refinements */
 @media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .modal-content {
         padding: 24px;
+        width: 95%;
+        margin: 10px;
     }
 
     .glass-card {
         padding: 16px !important;
     }
+
+    header .flex-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    header div.flex.items-center.gap-3 {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nav-tabs-container {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .lg\:grid-cols-4 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Pull to Refresh Styles */
+#pullToRefresh {
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 24, 39, 0.4);
+    transition: height 0.2s ease;
+    color: #a855f7;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#pullToRefresh.active {
+    height: 60px;
 }
 
 /* Shimmer Effect for Loading */

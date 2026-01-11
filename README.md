@@ -18,11 +18,14 @@ A premium, feature-rich dashboard for tracking job applications, managing follow
 - **Backend & Auth**: Firebase (Authentication & Firestore)
 - **Deployment**: Vercel
 
-## Getting Started
+## Installation (PWA)
 
-Simply open `index.html` in your browser or visit the live deployment.
+This application is a **Progressive Web App**. You can install it on your device for a native-like experience:
+- **Desktop**: Click the "Install" icon in the address bar.
+- **Mobile (iOS)**: Tap "Share" and then "Add to Home Screen".
+- **Mobile (Android)**: Tap the three dots and select "Install App".
 
-## Usage
+## Features
 
 1. **Add Applications** - Click "Add Application" to track new job submissions
 2. **Set Reminders** - Automatic follow-up date calculation

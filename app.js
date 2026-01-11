@@ -51,6 +51,41 @@ class JobTracker {
             tab.addEventListener('click', (e) => this.switchTab(e.target.closest('.nav-tab').dataset.tab));
         });
 
+        // Pull to Refresh Logic
+        let touchStart = 0;
+        let touchEnd = 0;
+        const dashboard = document.getElementById('dashboardView');
+        const pullIndicator = document.getElementById('pullToRefresh');
+
+        if (dashboard) { // Ensure dashboard element exists
+            dashboard.addEventListener('touchstart', (e) => {
+                if (window.scrollY === 0) touchStart = e.targetTouches[0].screenY;
+            }, { passive: true });
+
+            dashboard.addEventListener('touchmove', (e) => {
+                if (window.scrollY === 0 && touchStart > 0) {
+                    touchEnd = e.targetTouches[0].screenY;
+                    if (pullIndicator && touchEnd - touchStart > 100) {
+                        pullIndicator.classList.add('active');
+                    }
+                }
+            }, { passive: true });
+
+            dashboard.addEventListener('touchend', () => {
+                if (pullIndicator && pullIndicator.classList.contains('active')) {
+                    setTimeout(() => {
+                        pullIndicator.classList.remove('active');
+                        if (window.syncFromCloud) window.syncFromCloud();
+                        this.renderApplications(true);
+                        setTimeout(() => this.renderApplications(), 600);
+                    }, 1000);
+                }
+                touchStart = 0;
+                touchEnd = 0;
+            });
+        }
+
+
         // Application Modal
         document.getElementById('addApplicationBtn').addEventListener('click', () => this.openApplicationModal());
         document.getElementById('closeModal').addEventListener('click', () => this.closeApplicationModal());

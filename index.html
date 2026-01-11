@@ -61,6 +61,14 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#a855f7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="JobTracker">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2921/2921132.png">
 </head>
 
 <body class="bg-gray-950 text-gray-100 font-['Inter'] overflow-x-hidden">
@@ -158,6 +166,11 @@
 
     <!-- Dashboard View Section -->
     <div id="dashboardView" class="hidden">
+        <!-- Pull to Refresh Indicator -->
+        <div id="pullToRefresh">
+            <span class="loading mr-2"></span> Refreshing...
+        </div>
+
         <!-- Header -->
         <header class="sticky top-0 z-50 backdrop-blur-xl bg-gray-900/80 border-b border-gray-800">
             <div class="container mx-auto px-4 py-4">
