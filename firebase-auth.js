@@ -156,6 +156,7 @@ function setupLandingPageListeners() {
     const getStartedBtn = document.getElementById('getStartedBtn');
     const googleSignInBtn = document.getElementById('googleSignInBtn');
     const viewDemoBtn = document.getElementById('viewDemoBtn');
+    const signOutBtn = document.getElementById('signOutBtn');
 
     if (getStartedBtn) {
         getStartedBtn.addEventListener('click', () => showView('authView'));
@@ -163,6 +164,10 @@ function setupLandingPageListeners() {
 
     if (googleSignInBtn) {
         googleSignInBtn.addEventListener('click', signInWithGoogle);
+    }
+
+    if (signOutBtn) {
+        signOutBtn.addEventListener('click', signOut);
     }
 
     if (viewDemoBtn) {
