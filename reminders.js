@@ -116,13 +116,14 @@ class RemindersManager {
     }
 }
 
-// Initialize reminders after jobTracker is ready
+// Initialize reminders when jobTracker is definitively ready
 if (window.jobTracker) {
-    window.remindersManager = new RemindersManager(window.jobTracker);
+    if (!window.remindersManager) {
+        window.remindersManager = new RemindersManager(window.jobTracker);
+    }
 } else {
-    // Fallback in case of race condition
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.jobTracker) {
+    document.addEventListener('jobTrackerReady', () => {
+        if (!window.remindersManager) {
             window.remindersManager = new RemindersManager(window.jobTracker);
         }
     });

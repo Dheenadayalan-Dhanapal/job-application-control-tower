@@ -9,6 +9,15 @@
 body {
     position: relative;
     overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Ensure room for badges in the nav container */
+#navTabsContainer {
+    padding-top: 12px !important;
+    margin-top: -4px;
+    overflow-y: visible !important;
+    /* Allow badges to pop out */
 }
 
 /* Animated Background */
@@ -60,6 +69,8 @@ body::before {
 
 /* Navigation Tabs */
 .nav-tab {
+    position: relative;
+    /* Lock for notification badges */
     padding: 12px 24px;
     border-radius: 12px;
     background: rgba(31, 41, 55, 0.6);

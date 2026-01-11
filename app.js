@@ -905,4 +905,6 @@ class JobTracker {
 }
 
 // Initialize the application
+// Initialize the application
 window.jobTracker = new JobTracker();
+document.dispatchEvent(new CustomEvent('jobTrackerReady'));
