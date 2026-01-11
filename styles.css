@@ -313,25 +313,24 @@ body::before {
 /* Tab Notification Badge */
 .notification-badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -5px;
+    right: -5px;
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
     font-size: 11px;
     font-weight: 800;
-    height: 20px;
-    min-width: 20px;
-    padding: 0 6px;
-    border-radius: 50%;
+    height: 22px;
+    min-width: 22px;
+    padding: 0 4px;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.6);
     border: 2px solid #0f172a;
-    /* Blend with dark background */
     z-index: 10;
     pointer-events: none;
-    animation: badgePop 0.3s ease-out;
+    animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes badgePop {
