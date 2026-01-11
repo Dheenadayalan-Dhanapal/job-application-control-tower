@@ -756,6 +756,10 @@ class JobTracker {
                 </div>
             `;
         }).join('');
+
+        if (window.remindersManager) {
+            window.remindersManager.checkReminders();
+        }
     }
 
     // Update Replies Tab

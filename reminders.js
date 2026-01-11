@@ -24,6 +24,7 @@ class RemindersManager {
 
     showNotificationBadge(count) {
         const remindersTab = document.querySelector('[data-tab="reminders"]');
+        if (!remindersTab) return;
 
         // Remove existing badge
         const existingBadge = remindersTab.querySelector('.notification-badge');
@@ -116,6 +117,13 @@ class RemindersManager {
 }
 
 // Initialize reminders after jobTracker is ready
-if (typeof jobTracker !== 'undefined') {
-    window.remindersManager = new RemindersManager(jobTracker);
+if (window.jobTracker) {
+    window.remindersManager = new RemindersManager(window.jobTracker);
+} else {
+    // Fallback in case of race condition
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.jobTracker) {
+            window.remindersManager = new RemindersManager(window.jobTracker);
+        }
+    });
 }
