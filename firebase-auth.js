@@ -2,12 +2,13 @@
 // Replace these with your actual Firebase project credentials
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDCf-_Ri4HzrkKN5wnKpcZcJrEDn52LPT4",
+    authDomain: "job-application-tracker-831c2.firebaseapp.com",
+    projectId: "job-application-tracker-831c2",
+    storageBucket: "job-application-tracker-831c2.firebasestorage.app",
+    messagingSenderId: "775540415620",
+    appId: "1:775540415620:web:85848962ef0ad10692f6d1",
+    measurementId: "G-1PRS2NVYNT"
 };
 
 // Initialize Firebase
