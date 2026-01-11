@@ -2,7 +2,7 @@
 // Replace these with your actual Firebase project credentials
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDCf-_Ri4HzrkKN5wnKpcZcJrEDn52LPT4",
+    apiKey: "AIzaSyAghXg8weADnAGrOVuRZBsDqCU-UHAl1T8",
     authDomain: "job-application-tracker-831c2.firebaseapp.com",
     projectId: "job-application-tracker-831c2",
     storageBucket: "job-application-tracker-831c2.firebasestorage.app",
