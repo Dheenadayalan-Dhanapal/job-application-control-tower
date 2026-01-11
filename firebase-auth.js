@@ -60,9 +60,11 @@ function handleAuthStateChanged(user) {
             // Re-render UI to empty state
             window.jobTracker.updateStats();
             window.jobTracker.renderApplications();
-            window.jobTracker.updateReminders();
-            window.jobTracker.updateReplies();
-            window.jobTracker.updateAnalytics();
+
+            // Explicitly update all dependent views
+            if (window.remindersManager) window.remindersManager.checkReminders();
+            if (window.analyticsManager) window.analyticsManager.updateInsights();
+            if (window.heatmapManager) window.heatmapManager.updateHeatmap();
 
             // Clear any lingering notification badges
             const badge = document.querySelector('.notification-badge');

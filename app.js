@@ -649,4 +649,4 @@ class JobTracker {
 }
 
 // Initialize the application
-const jobTracker = new JobTracker();
+window.jobTracker = new JobTracker();

@@ -8,14 +8,14 @@ A premium, feature-rich dashboard for tracking job applications, managing follow
 - ⏰ **Follow-up Reminders** - Automated reminder system with visual indicators
 - 💬 **HR Replies Storage** - Categorized responses with sentiment analysis
 - 🔥 **Rejection Heatmap** - Interactive visualization of application patterns
-- 💾 **Data Persistence** - LocalStorage for offline functionality
+- ☁️ **Cloud Sync** - Real-time synchronization powered by Firebase
+- 🔐 **Secure Auth** - Google Sign-In with multi-user data isolation
 - 📥 **Import/Export** - JSON-based data portability
 
 ## Tech Stack
 
 - **Frontend**: HTML5, CSS3 (Tailwind CSS), Vanilla JavaScript
-- **Design**: Dark theme with glassmorphism effects
-- **Storage**: Browser LocalStorage (no backend required)
+- **Backend & Auth**: Firebase (Authentication & Firestore)
 - **Deployment**: Vercel
 
 ## Getting Started
@@ -80,7 +80,12 @@ job-tracker/
 
 ## Data Privacy
 
-All data is stored locally in your browser using LocalStorage. No data is sent to any server.
+Your data is stored securely in **Google Firebase (Cloud Firestore)** when signed in, ensuring cross-device synchronization. For guest users, data remains in your browser's `LocalStorage`.
+
+- **Multi-user Isolation**: Each user can only access their own data.
+- **Secure Authentication**: Powerded by Google Firebase Auth.
+- **Local Fallback**: Works offline using local storage.
+- **Data Clearing**: User data is automatically cleared from the browser upon sign-out for enhanced privacy in shared environments.
 
 ## Browser Support
 
